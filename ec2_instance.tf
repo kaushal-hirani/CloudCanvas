@@ -5,6 +5,8 @@ resource "aws_instance" "web_instance" {
     Name = "WebInstance"
   }
   vpc_security_group_ids = [aws_security_group.web_sg.id]
+
+  iam_instance_profile = aws_iam_instance_profile.web_instance_profile.name
 }
 
 data "aws_ami" "latest_amazon_ami" {
