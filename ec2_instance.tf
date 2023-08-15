@@ -10,7 +10,7 @@ data "aws_ami" "latest_amazon_ami" {
   most_recent = true
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm-*"]
+    values = ["amzn2-ami-kernel-5.10-hvm-*-x86_64-gp2"]
   }
   filter {
     name   = "owner-alias"
