@@ -7,6 +7,20 @@ resource "aws_instance" "web_instance" {
   vpc_security_group_ids = [aws_security_group.web_sg.id]
 
   iam_instance_profile = aws_iam_instance_profile.web_instance_profile.name
+  key_name             = aws_key_pair.web-ssh.key_name
+  user_data            = <<-EOF
+    #!/bin/bash
+    yum update -y
+    yum install -y httpd
+    systemctl start httpd
+    systemctl enable httpd
+    echo "Hello, World!" > /var/www/html/index.html
+    EOF
+}
+
+resource "aws_key_pair" "web-ssh" {
+  key_name   = "web-ssh"
+  public_key = var.public_key
 }
 
 data "aws_ami" "latest_amazon_ami" {
